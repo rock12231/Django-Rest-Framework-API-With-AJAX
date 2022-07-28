@@ -23,54 +23,43 @@
 <body>
     <section>
         <div class="container m-5 p-5">
-            <div class="row bg-secondary text-light d-flex align-items-center">
-                <div class="col-lg-7 d-flex justify-content-center p-4">
+            <div class="row bg-secondary m-3 p-2 text-light d-flex align-items-center">
+                <div class="col-lg-4 d-flex justify-content-center p-5">
                     <form class="row" id="post-form">
                         <h1 class="text-center">Form</h1>
-                        <div class="col-md-6">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" id="name">
+                        <div class="col-md-12">
+                            <label for="name" class="form-label">Title</label>
+                            <input type="text" class="form-control" name="title" id="title">
                         </div>
-                        <div class="col-md-6">
-                            <label for="position" class="form-label">Position</label>
-                            <input type="text" class="form-control" name="position" id="position">
+                        <div class="col-md-12">
+                            <label for="name" class="form-label">Code</label>
+                            <input type="text" class="form-control" name="code" id="code">
                         </div>
-                        <div class="col-md-6">
-                            <label for="salary" class="form-label">Salary</label>
-                            <input type="text" class="form-control" name="salary" id="salary">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="start_date" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" name="start_date" id="start_date">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="office" class="form-label">Office</label>
-                            <input type="text" class="form-control" name="office" id="office">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="extn" class="form-label">Extn</label>
-                            <input type="number" class="form-control" name="extn" id="extn">
+                    
+                        <div class="col-md-12 mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="linenos" id="linenos">
+                                <label class="form-check-label" for="linenos">
+                                    Default checkbox
+                                </label>
+                            </div>
                         </div>
                         <div class="col-12 text-center mt-3">
-                            <input type="submit" value="SAVE" id="saveBtn" class="btn btn-lg btn-outline-warning">
+                            <input type="submit" value="SAVE" id="save" class="btn btn-lg btn-outline-warning">
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-5 d-flex justify-content-center">
-                <div class="table-responsive">
-                        <table class="table table-hover">
+                <div class="col-lg-8 d-flex justify-content-center">
+                    <div class="table-responsive text-light">
+                        <table id="example" class="table text-light table-hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Salary</th>
-                                    <th>Start-Date</th>
-                                    <th>Office</th>
-                                    <th>Extn</th>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Code</th>
+                                    <th>Linenos</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody">
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -78,6 +67,81 @@
         </div>
     </section>
 </body>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+ <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+ <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+
+    $.ajax({
+        type: "GET",
+        url: 'http://127.0.0.1:8000/api/snippet/?format=json',
+        dataType: 'json',
+        success: function (obj, textstatus) {
+            $('#example').DataTable({
+                data: obj,
+                pageLength: 5,
+                columns: [
+                    { data: 'id' },
+                    { data: 'title' },
+                    { data: 'code' },
+                    { data: 'linenos' },
+                ]
+            });
+        },
+        error: function (obj, textstatus) {
+            alert(obj.msg);
+        }
+    });
+
+    $(document).ready(function () {
+        $("#save").click(function () {
+            var data = new Object();
+            data.title = $('#title').val();
+            data.code = $('#code').val();
+            data.linenos = $('#linenos').prop('checked')
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/snippet/',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function (data, textStatus, xhr) {
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+        });
+    });
+
+
+
+</script>
+<!-- 
+
+    //Get with bootstrap working
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/snippet/",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var html = "";
+                $.each(data, function (key, value) {
+                    html += "<tr>";
+                    html += "<td>" + value.id + "</td>";
+                    html += "<td>" + value.title + "</td>";
+                    html += "<td>" + value.code + "</td>";
+                    html += "<td>" + value.linenos + "</td>";
+                    html += "</tr>";
+                });
+                $("#tbody").html(html);
+            }
+        });
+    }); -->
+
+
 <!-- 
      $(document).ready(function () {
         $("#post-form").submit(function (event) {
@@ -96,58 +160,8 @@
         });
     });
  -->
-<script>
-    //Get
-    $(document).ready(function () {
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/emp/",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                var html = "";
-                $.each(data, function (key, value) {
-                    html += "<tr>";
-                    html += "<td>" + value.name + "</td>";
-                    html += "<td>" + value.position + "</td>";
-                    html += "<td>" + value.salary + "</td>";
-                    html += "<td>" + value.start_date + "</td>";
-                    html += "<td>" + value.office + "</td>";
-                    html += "<td>" + value.extn + "</td>";
-                    html += "</tr>";
-                });
-                $("#tbody").html(html);
-            }
-        });
-    });
-
-    //Post
-    $("#saveBtn").click(function (e) {
-        e.preventDefault();
-        var name = $("#name").val();
-        var position = $("#position").val();
-        var salary = $("#salary").val();
-        var start_date = $("#start_date").val();
-        var office = $("#office").val();
-        var extn = $("#extn").val();
-        $.ajax({
-            url: "http://127.0.0.1:8000/api/emp/",
-            type: "POST",
-            data: {
-                name: name,
-                position: position,
-                salary: salary,
-                start_date: start_date,
-                office: office,
-                extn: extn
-            }});
-        });
-
-    //Post
-   
-</script>
-
-<!-- <script>
+<!--
+ <script>
     $.ajax({
         type: 'GET',
         dataType: "json",

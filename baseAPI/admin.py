@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Emp
+from .models import Snippet
 # Register your models here.
 
 class EmpTable(admin.ModelAdmin):
-    list_display = ('id','name','position','salary','start_date','office','extn')
-admin.site.register(Emp,EmpTable)
+    list_display = ('id', 'created', 'title', 'code', 'linenos')
+admin.site.register(Snippet,EmpTable)
