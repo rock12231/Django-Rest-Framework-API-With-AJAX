@@ -46,7 +46,7 @@ Open Index.html in browser
 ```bash
     https://rock12231.github.io/Rest-Framework-API-With-AJAX/
 ```
-## Authors
+## Author
 
 ✨ [@rock12231](https://github.com/rock12231)
 
