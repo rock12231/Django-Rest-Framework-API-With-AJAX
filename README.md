@@ -1,6 +1,7 @@
 # Rest-Framework-API-With-AJAX
-### Django Rest framework api with datatable ajax
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/rock12231/Rest-Framework-API-With-AJAX/edit/master/README.md)](https://hits.seeyoufarm.com)                    
 
+### Django Rest framework api with datatable ajax
 
 ## Features
 
@@ -45,7 +46,7 @@ Open Index.html in browser
 ```bash
     https://rock12231.github.io/Rest-Framework-API-With-AJAX/
 ```
-## Authors
+## Author
 
 ✨ [@rock12231](https://github.com/rock12231)
 
