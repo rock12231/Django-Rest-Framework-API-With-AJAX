@@ -29,7 +29,9 @@ ALLOWED_HOSTS = [
     'http://avi-test-pro.herokuapp.com/',
     'https://avi-test-pro.herokuapp.com/',
     'avi-test-pro.herokuapp.com',
-    'avi-test-pro.herokuapp.com/'
+    'avi-test-pro.herokuapp.com/',
+    '127.0.0.1:8000',
+    '127.0.0.1',
     '*'
 ]
 
