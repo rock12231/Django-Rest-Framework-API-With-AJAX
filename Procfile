@@ -1,1 +1,1 @@
-gunicorn CRUDAjax.wsgi --log-file -
+web: gunicorn CRUDAjax.wsgi --log-file -
