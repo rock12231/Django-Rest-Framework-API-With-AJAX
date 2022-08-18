@@ -25,7 +25,13 @@ SECRET_KEY = 'lnh$k-0@g!(@nn967&mggqvmx5w$2cge7uk#ol#^uqq_1-194y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'http://avi-test-pro.herokuapp.com/',
+    'https://avi-test-pro.herokuapp.com/',
+    'avi-test-pro.herokuapp.com',
+    'avi-test-pro.herokuapp.com/'
+    '*'
+]
 
 
 # Application definition
