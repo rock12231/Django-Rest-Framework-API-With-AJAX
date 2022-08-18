@@ -75,7 +75,7 @@
 
     $.ajax({
         type: "GET",
-        url: 'http://127.0.0.1:8000/api/snippet/?format=json',
+        url: '/api/snippet/',
         dataType: 'json',
         success: function (obj, textstatus) {
             $('#example').DataTable({
@@ -86,7 +86,7 @@
                     { data: 'title' },
                     { data: 'code' },
                     { data: 'linenos' },
-                    { data: 'created' },
+                    { data: 'created' }, 
                 ]
             });
         },
