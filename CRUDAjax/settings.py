@@ -26,13 +26,13 @@ SECRET_KEY = 'lnh$k-0@g!(@nn967&mggqvmx5w$2cge7uk#ol#^uqq_1-194y'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'http://avi-test-pro.herokuapp.com/',
-    'https://avi-test-pro.herokuapp.com/',
-    'avi-test-pro.herokuapp.com',
-    'avi-test-pro.herokuapp.com/',
+    'https://djangoajax.herokuapp.com/',
+    'https://djangoajax.herokuapp.com',
+    'http://djangoajax.herokuapp.com/',
+    'http://djangoajax.herokuapp.com',
+    'djangoajax.herokuapp.com'
     '127.0.0.1:8000',
     '127.0.0.1',
-    '*'
 ]
 
 
@@ -71,10 +71,10 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL=False
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
-    'http://avi-test-pro.herokuapp.com',
-    'https://avi-test-pro.herokuapp.com'
+    # 'http://localhost:8000',
+    # 'http://127.0.0.1:8000',
+    'http://djangoajax.herokuapp.com',
+    'https://djangoajax.herokuapp.com'
 ]
 
 ROOT_URLCONF = 'CRUDAjax.urls'
