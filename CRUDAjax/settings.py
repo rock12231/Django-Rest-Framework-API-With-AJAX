@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lnh$k-0@g!(@nn967&mggqvmx5w$2cge7uk#ol#^uqq_1-194y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'https://djangoajax.herokuapp.com/',
