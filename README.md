@@ -50,3 +50,4 @@ Open Index.html in browser
 
 ✨ [@rock12231](https://github.com/rock12231)
 
+heroku ps:scale web=1 -a avi-test-pro
