@@ -102,7 +102,7 @@
             data.code = $('#code').val();
             data.linenos = $('#linenos').prop('checked')
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/snippet/',
+                url: '/api/snippet/',
                 type: 'POST',
                 dataType: 'json',
                 data: data,
