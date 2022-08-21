@@ -137,7 +137,7 @@
             alert(obj.msg);
         }
     });
-    function editdata(){
+    function editdata() {
         Swal.fire({
             text: 'Toast with custom target',
             target: '#custom-target',
@@ -149,11 +149,11 @@
         })
 
     }
-    function deletedata(id){
-          var data = new Object();
-          data.id = id   
+    function deletedata(id) {
+        var data = new Object();
+        data.id = id
         $.ajax({
-            url: '/api/snippet/'+id+'/',
+            url: '/api/snippet/' + id + '/',
             type: 'DELETE',
             dataType: 'json',
             data: data,
