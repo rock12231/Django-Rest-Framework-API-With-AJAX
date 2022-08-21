@@ -119,15 +119,16 @@
                     { data: 'created' },
                     {
                         data: null,
-                        //className: "dt-center editor-edit",
+                        className: "dt-center editor-edit",
                         defaultContent: '<i onclick="editdata()" class="fas fa-clock"></i>',
                         orderable: false
                     },
                     {
                         data: null,
-                        //className: "dt-center editor-delete",
-                        defaultContent: '<i onclick="deletedata()" class="fas fa-trash"></i>',
-                        orderable: false
+                        className: "dt-center editor-edit",
+                        render: (data, type, row) => {
+                            return `<i onclick="deletedata(${row.id})" class="fas fa-trash"></i>`;
+                        }
                     }
                 ]
             });
@@ -148,7 +149,22 @@
         })
 
     }
-    function deletedata(){
+    function deletedata(id){
+          var data = new Object();
+          data.id = id   
+        $.ajax({
+            url: '/api/snippet/'+id+'/',
+            type: 'DELETE',
+            dataType: 'json',
+            data: data,
+            success: function (data, textStatus, xhr) {
+                console.log(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
