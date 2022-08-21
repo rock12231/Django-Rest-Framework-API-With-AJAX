@@ -33,8 +33,9 @@
         input[type=search] {
             color: #fff !important;
         }
+
         .toolbar {
-        float: left;
+            float: left;
         }
     </style>
 
@@ -44,7 +45,7 @@
     <section>
         <div class="container mt-5">
             <div class="row text-light d-flex align-items-center">
-                
+
                 <!-- <div class="col-lg-4 d-flex justify-content-center p-5">
                     <form class="row" id="post-form">
                         <h1 class="text-center">Form</h1>
@@ -99,14 +100,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
-
-       var table = $.ajax({
+    var table
+    table = $.ajax({
         type: "GET",
         url: '/api/snippet/',
         dataType: 'json',
         success: function (obj, textstatus) {
-         $('#example').DataTable({
-                
+            $('#example').DataTable({
+
                 data: obj,
                 //pageLength: 5,
                 order: [[4, 'desc']],
@@ -119,13 +120,13 @@
                     {
                         data: null,
                         //className: "dt-center editor-edit",
-                        defaultContent: '<i class="fas fa-clock"></i>',
+                        defaultContent: '<i onclick="editdata()" class="fas fa-clock"></i>',
                         orderable: false
                     },
                     {
                         data: null,
                         //className: "dt-center editor-delete",
-                        defaultContent: '<i class="fas fa-trash"></i>',
+                        defaultContent: '<i onclick="deletedata()" class="fas fa-trash"></i>',
                         orderable: false
                     }
                 ]
@@ -135,6 +136,39 @@
             alert(obj.msg);
         }
     });
+    function editdata(){
+        Swal.fire({
+            text: 'Toast with custom target',
+            target: '#custom-target',
+            customClass: {
+                container: 'position-absolute'
+            },
+            toast: true,
+            position: 'center'
+        })
+
+    }
+    function deletedata(){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        })
+    }
+    //    setInterval(function () {
+    ////          table.ajax.reload();
+    //  }, 3000);
 
     $(document).ready(function () {
         $("#save").click(function () {
@@ -157,34 +191,33 @@
         });
     });
 
-
-
     async function clickme() {
         const { value: formValues } = await Swal.fire({
             title: 'Fill The Details',
-            html:'<input type="text" class="form-control" id="swal-input1" placeholder="Title"><br>' +
+            html: '<input type="text" class="form-control" id="swal-input1" placeholder="Title"><br>' +
                 '<textarea type="text" class="form-control" name="code" id="swal-input2" placeholder="HTML Allowed"rows="3" ></textarea><br>' +
-                '<input  class="form-check-input" type="checkbox" id="swal-input3"><label class= "text-muted form-check-label" for="swal-input3">Linenos </label >', 
+                '<input  class="form-check-input" type="checkbox" id="swal-input3"><label class= "text-muted form-check-label" for="swal-input3">Linenos </label >',
             focusConfirm: false,
         })
 
         if ($('#swal-input1').val() && $('#swal-input2').val()) {
-                    var data = new Object();
-                    data.title = $('#swal-input1').val();
-                    data.code = $('#swal-input2').val();
-                    data.linenos = $('#swal-input3').prop('checked')
-                    $.ajax({
-                        url: '/api/snippet/',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: data,
-                        success: function (data, textStatus, xhr) {
-                            console.log(data);
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            console.log('Error in Operation');
-                        }
-                    });  
+            var data = new Object();
+            data.title = $('#swal-input1').val();
+            data.code = $('#swal-input2').val();
+            data.linenos = $('#swal-input3').prop('checked')
+            $.ajax({
+                url: '/api/snippet/',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function (data, textStatus, xhr) {
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+            table.ajax.reload()
 
             const Toast = Swal.mixin({
                 toast: true,
@@ -202,9 +235,8 @@
                 icon: 'success',
                 title: 'Signed in successfully'
             })
-             table.ajax.reload();
         }
-          else {
+        else {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
