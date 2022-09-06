@@ -149,22 +149,8 @@
         })
 
     }
-    function deletedata(id) {
-        var data = new Object();
-        data.id = id
-        $.ajax({
-            url: '/api/snippet/' + id + '/',
-            type: 'DELETE',
-            dataType: 'json',
-            data: data,
-            success: function (data, textStatus, xhr) {
-                console.log(data);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
-            }
-        });
 
+    if (localStorage.getItem("save")) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -176,11 +162,49 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-
+        localStorage.setItem("save", "");
         Toast.fire({
             icon: 'success',
             title: 'Signed in successfully'
         })
+    }
+
+    if (localStorage.getItem("delete")) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        localStorage.setItem("delete", "");
+        Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        })
+    }
+
+    function deletedata(id) {
+        var data = new Object();
+        data.id = id
+        $.ajax({
+            url: '/api/snippet/' + id + '/',
+            type: 'DELETE',
+            dataType: 'json',
+            data: data,
+            success: function (data, textStatus, xhr) {
+                console.log(data);
+                localStorage.setItem("delete", "1");
+                location.reload();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
     }
     //    setInterval(function () {
     ////          table.ajax.reload();
@@ -199,6 +223,8 @@
                 data: data,
                 success: function (data, textStatus, xhr) {
                     console.log(data);
+                    localStorage.setItem("save", "1");
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log('Error in Operation');
@@ -228,29 +254,13 @@
                 data: data,
                 success: function (data, textStatus, xhr) {
                     console.log(data);
+                    localStorage.setItem("save", "1");
+                    location.reload();
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log('Error in Operation');
                 }
             });
-            table.ajax.reload()
-
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: 'success',
-                title: 'Signed in successfully'
-            })
         }
         else {
             const Toast = Swal.mixin({
