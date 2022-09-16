@@ -145,7 +145,7 @@
                         className: "dt-center editor-edit",
                         orderable: false,
                         render: (data, type, row) => {
-                            return `<i onclick="editdata(${row.id})" class="fas fa-clock hvr-grow pe"></i>`;
+                            return `<i onclick="editdata(${row.id},'${row.title}','${row.code}','${row.linenos}')" class="fas fa-clock hvr-grow pe"></i>`;
                         }
                     },
                     {
@@ -313,13 +313,19 @@
 
 
 
-    async function editdata(id) {
-        console.log("row", id)
+    async function editdata(id, title, code, linenos) {
+        var check
+        if (linenos == 'true') {
+            check = 'checked'
+        }
+        else {
+            check = ''
+        }
         const { value: formValues } = await Swal.fire({
             title: 'Fill The Details',
-            html: '<input type="text" class="form-control" id="swal-input1" placeholder="Title"><br>' +
-                '<textarea type="text" class="form-control" name="code" id="swal-input2" placeholder="HTML Allowed"rows="3" ></textarea><br>' +
-                '<input  class="form-check-input" type="checkbox" id="swal-input3"><label class= "text-muted form-check-label" for="swal-input3">Linenos </label >',
+            html: '<input type="text" class="form-control" value="'+ title +'" id="swal-input1" placeholder="Title"><br>' +
+                '<textarea type="text" class="form-control" name="code" id="swal-input2" placeholder="HTML Allowed"rows="3" >'+ code +'</textarea><br>' +
+                '<input class="form-check-input" '+ check +' type="checkbox" id="swal-input3"><label class= "text-muted form-check-label" for="swal-input3">Linenos </label >',
             focusConfirm: false,
         })
 
