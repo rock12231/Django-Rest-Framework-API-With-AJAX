@@ -95,7 +95,7 @@
                     </form>
                 </div> -->
                 <div class="col-lg-12 d-flex justify-content-center">
-                    <button onclick="clickme()" class="btn btn-warning">Click Me</button>
+                    <button onclick="clickme()" class="btn btn-warning">Add Record</button>
                 </div>
 
                 <div class="col-lg-12 d-flex justify-content-center">
@@ -145,7 +145,7 @@
                         className: "dt-center editor-edit",
                         orderable: false,
                         render: (data, type, row) => {
-                            return `<i onclick="editdata(${row.id},'${row.title}','${row.code}','${row.linenos}')" class="fas fa-clock hvr-grow pe"></i>`;
+                            return `<i onclick="editdata(${row.id},'${row.title}','${row.code}','${row.linenos}')" class="fas  fa-pencil-alt hvr-grow pe"></i>`;
                         }
                     },
                     {
@@ -203,22 +203,36 @@
     }
 
     function deletedata(id) {
-        var data = new Object();
-        data.id = id
-        $.ajax({
-            url: '/api/snippet/' + id + '/',
-            type: 'DELETE',
-            dataType: 'json',
-            data: data,
-            success: function (data, textStatus, xhr) {
-                console.log(data);
-                localStorage.setItem("delete", "1");
-                location.reload();
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
-            }
-        });
+
+        Swal.fire({
+            title: 'Do you want to Delete ?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = new Object();
+                data.id = id
+                $.ajax({
+                    url: '/api/snippet/' + id + '/',
+                    type: 'DELETE',
+                    dataType: 'json',
+                    data: data,
+                    success: function (data, textStatus, xhr) {
+                        console.log(data);
+                        localStorage.setItem("delete", "1");
+                        location.reload();
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            } 
+            //else {
+              //  Swal.fire('Changes are not saved', '', 'info')
+            //}
+        })
+
+
     }
 
 
@@ -247,6 +261,7 @@
     async function clickme() {
         const { value: formValues } = await Swal.fire({
             title: 'Fill The Details',
+            confirmButtonText: 'Save',
             html: '<input type="text" class="form-control" id="swal-input1" placeholder="Title"><br>' +
                 '<textarea type="text" class="form-control" name="code" id="swal-input2" placeholder="HTML Allowed"rows="3" ></textarea><br>' +
                 '<input  class="form-check-input" type="checkbox" id="swal-input3"><label class= "text-muted form-check-label" for="swal-input3">Linenos </label >',
@@ -300,7 +315,8 @@
         if (linenos == 'true') { check = 'checked' }
         else { check = '' }
         const { value: formValues } = await Swal.fire({
-            title: 'Fill The Details',
+            title: 'Update Details',
+            confirmButtonText: 'Update',
             html: '<input type="text" class="form-control" value="' + title + '" id="swal-input1" placeholder="Title"><br>' +
                 '<textarea type="text" class="form-control" name="code" id="swal-input2" placeholder="HTML Allowed"rows="3" >' + code + '</textarea><br>' +
                 '<input class="form-check-input" ' + check + ' type="checkbox" id="swal-input3"><label class= "text-muted form-check-label" for="swal-input3">Linenos </label >',
