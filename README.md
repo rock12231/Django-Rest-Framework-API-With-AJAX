@@ -20,7 +20,7 @@
 Clone the project
 
 ```bash
-    git clone https://github.com/rock12231/Rest-Framework-API-With-AJAX
+    git clone https://github.com/rock12231/Django-Rest-Framework-API-With-AJAX/
 ```
 
 Install dependencies:
